@@ -77,7 +77,7 @@ class BoardsWatchersHooks < Redmine::Hook::ViewListener
       url = '#'
     end
 
-    if url.is_a?(Hash) && Rails::VERSION::MAJOR >= 3 && Redmine::Utils.relative_url_root != ''
+    if url.is_a?(Hash) && Redmine::Utils.relative_url_root != ''
       # url="#{Redmine::Utils::relative_url_root}#{url_for(url.merge(:only_path => true))}"
 
       # コンテキストmenuリンクURLにインスタンス名重複表示される事象の改善

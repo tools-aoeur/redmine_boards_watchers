@@ -8,12 +8,8 @@ module BoardsWatchers::Patches
       base.class_eval do
         unloadable
 
-        if (Redmine::VERSION.to_a[0..2] <=> [1, 3, 3]) < 0
-          attr_protected :sticky_priority
-        else
-          safe_attributes 'sticky_priority',
-                          if: ->(message, user) { user.allowed_to?(:edit_messages, message.project) }
-        end
+        safe_attributes 'sticky_priority',
+                        if: ->(message, user) { user.allowed_to?(:edit_messages, message.project) }
       end
     end
 
@@ -67,6 +63,25 @@ module BoardsWatchers::Patches
         end
         content.html_safe
       end
+
+      def reorder_links(name, url, method = :post)
+        # TODO: why it has been remove from https://github.com/redmine/redmine/commit/4f10dc20e6600b907f97a0beada77b9193250bde
+
+        ActiveSupport::Deprecation.warn 'Application#reorder_links will be removed in Redmine 4.'
+
+        link_to(l(:label_sort_highest),
+                url.merge({ "#{name}[move_to]" => 'highest' }), method: method,
+                                                                title: l(:label_sort_highest), class: 'icon-only icon-move-top') +
+          link_to(l(:label_sort_higher),
+                  url.merge({ "#{name}[move_to]" => 'higher' }), method: method,
+                                                                 title: l(:label_sort_higher), class: 'icon-only icon-move-up') +
+          link_to(l(:label_sort_lower),
+                  url.merge({ "#{name}[move_to]" => 'lower' }), method: method,
+                                                                title: l(:label_sort_lower), class: 'icon-only icon-move-down') +
+          link_to(l(:label_sort_lowest),
+                  url.merge({ "#{name}[move_to]" => 'lowest' }), method: method,
+                                                                 title: l(:label_sort_lowest), class: 'icon-only icon-move-bottom')
+      end
     end
   end
 
@@ -94,10 +109,10 @@ unless Message.included_modules.include? BoardsWatchers::Patches::StickyPriority
   Message.include BoardsWatchers::Patches::StickyPriorityMessagePatch
 end
 
-if Rails::VERSION::MAJOR >= 6 && Rails.env.production? && !(ApplicationHelper.included_modules.include? BoardsWatchers::Patches::ApplicationHelperPatch)
+if Rails.env.production? && !(ApplicationHelper.included_modules.include? BoardsWatchers::Patches::ApplicationHelperPatch)
   ApplicationHelper.include BoardsWatchers::Patches::ApplicationHelperPatch
 end
 
-if Redmine::VERSION::MAJOR >= 5 && !(MessagesController.included_modules.include? BoardsWatchers::Patches::MessagesControllerPatch)
+unless MessagesController.included_modules.include? BoardsWatchers::Patches::MessagesControllerPatch
   MessagesController.include BoardsWatchers::Patches::MessagesControllerPatch
 end
