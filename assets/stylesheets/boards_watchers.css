@@ -103,20 +103,3 @@ label.bw-floating {
   border-color: #9fcf9f;
   color: #005f00;
 }
-
-/* css for reorder_links */
-.icon-move-up {
-  background-image: url(../images/1uparrow.png);
-}
-
-.icon-move-top {
-  background-image: url(../images/2uparrow.png);
-}
-
-.icon-move-down {
-  background-image: url(../images/1downarrow.png);
-}
-
-.icon-move-bottom {
-  background-image: url(../images/2downarrow.png);
-}
