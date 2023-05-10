@@ -5,4 +5,3 @@ module BoardsWatchersHelper
 
   unloadable
 end
-

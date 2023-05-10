@@ -15,5 +15,5 @@ pl:
 
 # boards watchers permission
   permission_delete_board_watchers: "Zarządzanie obserwatorami forów"
-  permission_delete_message_watchers: "Zarządzanie obserwatorami tematów"
+  permission_delete_message_watchers_bw: "Zarządzanie obserwatorami tematów"
   permission_delete_wiki_watchers: "Zarządzanie obserwatorami wiki"
