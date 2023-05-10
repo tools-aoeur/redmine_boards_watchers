@@ -12,4 +12,4 @@ de:
 
 # boards watchers permission
   permission_delete_board_watchers: "Forum Beobachter verwalten"
-  permission_delete_message_watchers: "Themen Beobachter verwalten"
+  permission_delete_message_watchers_bw: "Themen Beobachter verwalten"

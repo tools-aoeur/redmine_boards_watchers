@@ -15,7 +15,7 @@ unless Redmine::Plugin.registered_plugins.keys.include?(BwAssetHelpers::PLUGIN_N
 
     project_module :boards do
       permission :delete_board_watchers, { boards_watchers: [:manage] }, require: :member
-      permission :delete_message_watchers, { boards_watchers: %i[manage_topic manage_topic_remote] },
+      permission :delete_message_watchers_bw, { boards_watchers: %i[manage_topic manage_topic_remote] },
                  require: :member
     end
 
