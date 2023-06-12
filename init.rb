@@ -11,7 +11,7 @@ unless Redmine::Plugin.registered_plugins.keys.include?(BwAssetHelpers::PLUGIN_N
     author_url  'https://github.com/tools-aoeur'
     description 'Three levels of sticky messages and allows managing watchers of forums/topics/wikis'
     url         'https://github.com/tools-aoeur/redmine_boards_watchers'
-    version     '1.0.2'
+    version     '1.0.3'
     requires_redmine version_or_higher: '5.0.0'
 
     project_module :boards do
