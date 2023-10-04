@@ -1,0 +1,10 @@
+<% if @issue.safe_attribute? 'watcher_user_ids' -%>
+  <%# VVK start %>
+  <%= render :partial => 'boards_watchers/watchers_list', :locals => { :watched_obj => @issue, :watched_param_name => 'issue[watcher_user_ids][]'} %>
+  <%# VVK end %>
+<% end %>
+
+<% content_for :header_tags do %>
+  <%= robot_exclusion_tag %>
+  <%= stylesheet_link_tag 'scm' %>
+<% end %>
