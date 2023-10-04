@@ -1,4 +1,6 @@
 class BoardsWatchersHooks < Redmine::Hook::ViewListener
+  render_on :view_issues_watchers_form, partial: 'issues/hooks/watchers_form'
+
   def view_layouts_base_html_head(_context = {})
     stylesheet_link_tag('boards_watchers', plugin: BwAssetHelpers::PLUGIN_NAME.to_s)
   end
