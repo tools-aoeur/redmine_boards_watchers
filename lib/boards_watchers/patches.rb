@@ -6,8 +6,6 @@ module BoardsWatchers::Patches
     def self.included(base) # :nodoc:
       base.send(:include, InstanceMethods)
       base.class_eval do
-        unloadable
-
         safe_attributes 'sticky_priority',
                         if: ->(message, user) { user.allowed_to?(:edit_messages, message.project) }
       end
@@ -36,8 +34,6 @@ module BoardsWatchers::Patches
     def self.included(base) # :nodoc:
       base.send(:include, InstanceMethods)
       base.class_eval do
-        unloadable
-
         alias_method :render_page_hierarchy_without_watchers, :render_page_hierarchy
         alias_method :render_page_hierarchy, :render_page_hierarchy_with_watchers
       end
@@ -66,21 +62,18 @@ module BoardsWatchers::Patches
     end
   end
 
-  if Redmine::VERSION::MAJOR >= 5
-    module MessagesControllerPatch
-      def self.included(base) # :nodoc:
-        base.send(:include, BoardsWatchers::MessagesActions)
-        base.class_eval do
-          unloadable
-          alias_method :new_without_watchers, :new
-          alias_method :new, :new_with_watchers
+  module MessagesControllerPatch
+    def self.included(base) # :nodoc:
+      base.send(:include, BoardsWatchers::MessagesActions)
+      base.class_eval do
+        alias_method :new_without_watchers, :new
+        alias_method :new, :new_with_watchers
 
-          alias_method :edit_without_watchers, :edit
-          alias_method :edit, :edit_with_watchers
+        alias_method :edit_without_watchers, :edit
+        alias_method :edit, :edit_with_watchers
 
-          alias_method :reply_without_watchers, :reply
-          alias_method :reply, :reply_with_watchers
-        end
+        alias_method :reply_without_watchers, :reply
+        alias_method :reply, :reply_with_watchers
       end
     end
   end

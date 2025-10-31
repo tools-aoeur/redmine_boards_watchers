@@ -1,6 +1,4 @@
 class BoardsWatchersController < ApplicationController
-  unloadable
-
   before_action :setup_environment, only: %i[manage manage_topic manage_topic_remote]
   before_action :setup_environment_wiki, only: :manage_wiki
   before_action :setup_environment_issues, only: %i[issues_watchers_bulk watch_bulk_issues]
